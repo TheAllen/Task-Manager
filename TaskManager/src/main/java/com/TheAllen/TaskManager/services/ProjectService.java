@@ -9,29 +9,42 @@ import com.TheAllen.TaskManager.repositories.ProjectRepository;
 
 @Service
 public class ProjectService {
-	
+
 	@Autowired
 	private ProjectRepository projectRepository;
-	
+
 	public Project saveOrUpdateProject(Project project) {
-		
+
 		try {
 			project.setProject_identifier(project.getProject_identifier().toUpperCase());
 			return projectRepository.save(project);
-		}catch(Exception e) {
-			throw new ProjectIDException("Project ID '" + project.getProject_identifier().toUpperCase() + "' already exist in the Database.");
+		} catch (Exception e) {
+			throw new ProjectIDException("Project ID '" + project.getProject_identifier().toUpperCase()
+					+ "' already exist in the Database.");
 		}
-		
-		
+
 	}
-	
+
 	public Project findProjectById(String projectID) {
-		
+
 		Project project = projectRepository.findByProjectIdentifier(projectID.toUpperCase());
-		if(project == null) {
+		if (project == null) {
 			throw new ProjectIDException("Project doesn't exist.");
 		}
-		
+
 		return project;
+	}
+
+	public Iterable<Project> findAllProjects() {
+		return projectRepository.findAll();
+	}
+	
+	public void deleteProjectByIdentifier(String projectId) {
+		Project project = projectRepository.findByProjectIdentifier(projectId);
+		if(project == null) {
+			throw new ProjectIDException("The project you are trying to delete does not exist.");
+		}
+		
+		projectRepository.delete(project);
 	}
 }
