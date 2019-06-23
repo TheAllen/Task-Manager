@@ -25,7 +25,7 @@ public class Project {
 	@NotBlank(message = "Project identifier is required.")
 	@Size(min=4, max=5, message="Please use 4-5 characters")
 	@Column(updatable=false, unique=true)
-	private String project_identifier;
+	private String projectIdentifier;
 	@NotBlank(message = "Description can not be empty")
 	private String description;
 	
@@ -69,11 +69,11 @@ public class Project {
 	}
 
 	public String getProject_identifier() {
-		return project_identifier;
+		return projectIdentifier;
 	}
 
 	public void setProject_identifier(String project_identifier) {
-		this.project_identifier = project_identifier;
+		this.projectIdentifier = project_identifier;
 	}
 
 	public String getDescription() {
