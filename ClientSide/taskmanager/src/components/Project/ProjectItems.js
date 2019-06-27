@@ -4,7 +4,7 @@ export default class ProjectItems extends Component {
     render() {
         return (
             <div className="container">
-                <div className="card card-body bg-light mb-3">
+                <div className="card card-body bg-light mb-5">
                     <div className="row">
                         <div className="col-2">
                             <span className="mx-auto">REACT</span>
