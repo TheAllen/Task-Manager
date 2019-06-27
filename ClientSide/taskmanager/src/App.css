@@ -12,9 +12,9 @@ img {
   width: 100%;
 }
 
-navbar {
-  background: rgba(88,63,251, 0.5);
-background: radial-gradient(circle, rgb(63, 107, 251) 0%, rgba(252,70,153,0.4150035014005602) 100%);
+Navbar {
+  background-color: rgba(88,63,251, 0.5);
+  /* background: radial-gradient(circle, rgb(63, 107, 251) 0%, rgba(252,70,153,0.4150035014005602) 100%); */
 }
 
 .projects {
@@ -25,7 +25,6 @@ background: radial-gradient(circle, rgb(63, 107, 251) 0%, rgba(252,70,153,0.4150
 .container {
   background: rgb(88,63,251);
   background: radial-gradient(circle, rgb(63, 107, 251) 0%, rgba(252,70,153,0.4150035014005602) 100%);
-
   border-radius: 10px;
   
 }
@@ -53,7 +52,7 @@ background: radial-gradient(circle, rgb(63, 107, 251) 0%, rgba(252,70,153,0.4150
 }
 
 .fa.fa-minus-circle {
-  color: red;
+  color: rgb(255, 72, 0);
 }
 
 .landing {
@@ -129,3 +128,4 @@ border-radius: 5px;
       -1px -1px 1px #111, 
       2px 2px 1px #363636;
 }
+

@@ -5,7 +5,7 @@ class Header extends Component {
     render() {
         return (
             <div>
-                <Navbar bg="primary" expand="lg">
+                <Navbar className="navbar" >
                     <Navbar.Brand href="#home">Task Management Tool</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
