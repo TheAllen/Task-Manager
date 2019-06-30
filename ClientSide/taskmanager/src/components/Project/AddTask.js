@@ -10,11 +10,11 @@ class AddTask extends Component {
         super();
 
         this.state = {
-            project_Name:"",
+            project_name:"",
             project_identifier:"",
             description:"",
             start_date:"",
-            end_date:""
+            end_date:"",
 
         };
 
@@ -29,7 +29,7 @@ class AddTask extends Component {
     onSubmit(e) {
         e.preventDefault();
         const newProject = {
-            project_Name: this.state.project_Name,
+            project_name: this.state.project_name,
             project_identifier: this.state.project_identifier,
             description: this.state.description,
             start_date: this.state.start_date,
@@ -41,7 +41,7 @@ class AddTask extends Component {
 
     render() {
         return (
-            <div className>
+            <div>
                 <h1>Add Task form</h1>
                 <div className="register">
                     <div className="container">
@@ -55,7 +55,7 @@ class AddTask extends Component {
                                         className="form-control form-control-lg " 
                                         placeholder="Project Name" 
                                         name="project_name"
-                                        value = {this.setState.project_Name}
+                                        value = {this.state.project_name}
                                         onChange = {this.onChange}
                                         />
                                     </div>
@@ -63,8 +63,8 @@ class AddTask extends Component {
                                         <input type="text" 
                                         className="form-control form-control-lg" 
                                         placeholder="Unique Project ID"
-                                        name="projectIdentifier" 
-                                        value = {this.setState.project_identifier}
+                                        name="project_identifier" 
+                                        value = {this.state.project_identifier}
                                         onChange = {this.onChange}
                                         />
                                     </div>
@@ -72,8 +72,8 @@ class AddTask extends Component {
                                     <div className="form-group">
                                         <textarea className="form-control form-control-lg" 
                                         placeholder="Project Description" 
-                                        name="projectDescription"
-                                        value = {this.setState.description}
+                                        name="description"
+                                        value = {this.state.description}
                                         onChange = {this.onChange}
                                         ></textarea>
                                     </div>
@@ -82,7 +82,7 @@ class AddTask extends Component {
                                         <input type="date" 
                                         className="form-control form-control-lg" 
                                         name="start_date" 
-                                        value = {this.setState.start_date}   
+                                        value = {this.state.start_date}   
                                         onChange = {this.onChange} 
                                         />
                                     </div>
@@ -91,7 +91,7 @@ class AddTask extends Component {
                                         <input type="date" 
                                         className="form-control form-control-lg" 
                                         name="end_date" 
-                                        value = {this.setState.end_date}
+                                        value = {this.state.end_date}
                                         onChange = {this.onChange}
                                         />
                                     </div>
@@ -102,7 +102,7 @@ class AddTask extends Component {
                         </div>
                     </div>
                 </div>
-                <h2>{this.state.project_Name}</h2>
+                <h2>{this.state.project_name}</h2>
             </div>
 
         );
