@@ -1,26 +1,26 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from "redux-thunk"
-import rootReducer from "./reducers"
+import {createStore, applyMiddleware, compose} from "redux";
+import thunk from "redux-thunk";
+import rootReducer from "./reducers";
 
+//intial state of application
 const initialState = {};
 const middleware = [thunk];
 
 let store;
 
-if (window.navigator.userAgent.includes("Chrome")) {
+if(window.navigator.userAgent.includes("Chrome")) {
     store = createStore(
-        rootReducer, 
-        initialState, 
-        compose(
-            applyMiddleware(...middleware), 
-            window.__REDUX__DEVTOOLS_EXTENSION__ &&
-            window.__REDUX__DEVTOOLS_EXTENSION__()
+        rootReducer,
+        initialState,
+        compose(applyMiddleware(...middleware), 
+        window.__REDUX_DEVTOOLS_EXTENSION__ &&
+        window.__REDUX_DEVTOOLS_EXTENSION__()
         )
     );
-} else {
+}else {
     store = createStore(
-        rootReducer, 
-        initialState, 
+        rootReducer,
+        initialState,
         compose(applyMiddleware(...middleware))
     );
 }
