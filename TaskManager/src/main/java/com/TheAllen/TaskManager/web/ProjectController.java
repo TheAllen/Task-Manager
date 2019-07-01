@@ -20,15 +20,15 @@ import com.TheAllen.TaskManager.services.MapValidationService;
 import com.TheAllen.TaskManager.services.ProjectService;
 
 @RestController
-@RequestMapping("/api/project")
 @CrossOrigin
+@RequestMapping("/api/project")
 public class ProjectController {
 
 	@Autowired
-	private ProjectService projectService;
+	public ProjectService projectService;
 	
 	@Autowired
-	private MapValidationService mapValidationService;
+	public MapValidationService mapValidationService;
 
 	@PostMapping("")
 	public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result) {

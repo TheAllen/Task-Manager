@@ -11,7 +11,7 @@ import com.TheAllen.TaskManager.repositories.ProjectRepository;
 public class ProjectService {
 
 	@Autowired
-	private ProjectRepository projectRepository;
+	public ProjectRepository projectRepository;
 
 	public Project saveOrUpdateProject(Project project) {
 

@@ -14,7 +14,7 @@ class AddTask extends Component {
             project_identifier:"",
             description:"",
             start_date:"",
-            end_date:"",
+            end_date:""
 
         };
 
@@ -43,7 +43,7 @@ class AddTask extends Component {
         return (
             <div>
                 <h1>Add Task form</h1>
-                <div className="register">
+                <div className="project">
                     <div className="container">
                         <div className="row">
                             <div className="col-md-8 m-auto">
@@ -102,7 +102,7 @@ class AddTask extends Component {
                         </div>
                     </div>
                 </div>
-                <h2>{this.state.project_name}</h2>
+                {/* <h2>{this.state.project_name}</h2> */}
             </div>
 
         );
@@ -112,5 +112,9 @@ class AddTask extends Component {
 AddTask.propTypes = {
     createProject : PropTypes.func.isRequired
 }
+
+const mapStateToProps = state =>({
+    errors:state.errors
+});
 
 export default connect(null,{ createProject }) (AddTask);
