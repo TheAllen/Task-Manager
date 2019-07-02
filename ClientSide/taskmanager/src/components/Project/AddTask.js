@@ -14,12 +14,20 @@ class AddTask extends Component {
             project_identifier:"",
             description:"",
             start_date:"",
-            end_date:""
+            end_date:"",
+            errors:{}
 
         };
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    //life cycle hooks
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.errors){
+            this.setState({errors:nextProps.errors});
+        }
     }
 
     onChange(e) {
@@ -40,6 +48,7 @@ class AddTask extends Component {
     }
 
     render() {
+        const {errors} = this.state;
         return (
             <div>
                 <h1>Add Task form</h1>
@@ -58,6 +67,7 @@ class AddTask extends Component {
                                         value = {this.state.project_name}
                                         onChange = {this.onChange}
                                         />
+                                    <p>{errors.project_name}</p>
                                     </div>
                                     <div className="form-group">
                                         <input type="text" 
@@ -67,6 +77,7 @@ class AddTask extends Component {
                                         value = {this.state.project_identifier}
                                         onChange = {this.onChange}
                                         />
+                                    <p>{errors.projectIdentifier}</p>
                                     </div>
 
                                     <div className="form-group">
@@ -76,6 +87,7 @@ class AddTask extends Component {
                                         value = {this.state.description}
                                         onChange = {this.onChange}
                                         ></textarea>
+                                        <p>{errors.description}</p>
                                     </div>
                                     <h6>Start Date</h6>
                                     <div className="form-group">
@@ -110,11 +122,12 @@ class AddTask extends Component {
 }
 
 AddTask.propTypes = {
-    createProject : PropTypes.func.isRequired
+    createProject : PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state =>({
     errors:state.errors
 });
 
-export default connect(null,{ createProject }) (AddTask);
+export default connect(mapStateToProps,{ createProject }) (AddTask);
