@@ -20,8 +20,8 @@ import com.TheAllen.TaskManager.services.MapValidationService;
 import com.TheAllen.TaskManager.services.ProjectService;
 
 @RestController
+@RequestMapping(path = "/api/project")
 @CrossOrigin
-@RequestMapping("/api/project")
 public class ProjectController {
 
 	@Autowired

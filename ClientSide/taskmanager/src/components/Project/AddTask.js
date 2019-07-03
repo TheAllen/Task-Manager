@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types"
 import {connect} from "react-redux"
 import {createProject} from "../../actions/projectAction"
-
+import classnames from "classnames"
 
 class AddTask extends Component {
 
@@ -61,7 +61,10 @@ class AddTask extends Component {
                                 <form onSubmit={this.onSubmit}>
                                     <div className="form-group">
                                         <input type="text" 
-                                        className="form-control form-control-lg " 
+                                        className={classnames("form-control form-control-lg", {
+                                            "is-invalid":errors.project_name
+                                        })}
+                                        // className="form-control form-control-lg"
                                         placeholder="Project Name" 
                                         name="project_name"
                                         value = {this.state.project_name}
@@ -71,7 +74,10 @@ class AddTask extends Component {
                                     </div>
                                     <div className="form-group">
                                         <input type="text" 
-                                        className="form-control form-control-lg" 
+                                        className={classnames("form-control form-control-lg", {
+                                            "is-invalid":errors.projectIdentifier
+                                        })}
+                                        // className="form-control form-control-lg" 
                                         placeholder="Unique Project ID"
                                         name="project_identifier" 
                                         value = {this.state.project_identifier}
@@ -81,7 +87,11 @@ class AddTask extends Component {
                                     </div>
 
                                     <div className="form-group">
-                                        <textarea className="form-control form-control-lg" 
+                                        <textarea 
+                                        className={classnames("form-control form-control-lg", {
+                                            "is-invalid":errors.description
+                                        })}
+                                        // className="form-control form-control-lg" 
                                         placeholder="Project Description" 
                                         name="description"
                                         value = {this.state.description}
