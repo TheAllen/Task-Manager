@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import {connect} from "react-redux"
 import {createProject} from "../../actions/projectAction"
 import classnames from "classnames"
+import Feedback from 'react-bootstrap/Feedback';
 
 class AddTask extends Component {
 
@@ -70,7 +71,9 @@ class AddTask extends Component {
                                         value = {this.state.project_name}
                                         onChange = {this.onChange}
                                         />
-                                    <p>{errors.project_name}</p>
+                                        {errors.project_name && (
+                                            <div className="invalid-feedback">{errors.project_name}</div>
+                                        )}
                                     </div>
                                     <div className="form-group">
                                         <input type="text" 
@@ -83,7 +86,9 @@ class AddTask extends Component {
                                         value = {this.state.project_identifier}
                                         onChange = {this.onChange}
                                         />
-                                    <p>{errors.projectIdentifier}</p>
+                                        {errors.projectIdentifier && (
+                                            <div className="invalid-feedback">{errors.projectIdentifier}</div>
+                                        )}
                                     </div>
 
                                     <div className="form-group">
@@ -97,7 +102,9 @@ class AddTask extends Component {
                                         value = {this.state.description}
                                         onChange = {this.onChange}
                                         ></textarea>
-                                        <p>{errors.description}</p>
+                                        {errors.description && (
+                                            <div className="invalid-feedback">{errors.description}</div>
+                                        )}
                                     </div>
                                     <h6>Start Date</h6>
                                     <div className="form-group">
