@@ -23,7 +23,7 @@ export default class ProjectItems extends Component {
                                         <i className="fa fa-flag-checkered pr-1"> Task Board </i>
                                     </li>
                                 </a>
-                                <Link to={`/updateProject/{project.project_identifier}`}>
+                                <Link to={`/updateProject/${project.project_identifier}`}>
                                     <li className="list-group-item update">
                                         <i className="fa fa-edit pr-1"> Update Task Info</i>
                                     </li>
