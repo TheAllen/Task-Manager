@@ -6,6 +6,7 @@ import Header from './components/Layout/Header'
 import logo from './logo.svg';
 import './App.css';
 import AddTask from './components/Project/AddTask';
+import UpdateProject from './components/Project/UpdateProject';
 import {Provider} from "react-redux";
 import store from "./store";
 
@@ -19,6 +20,7 @@ class App extends Component {
             <Header></Header>
             <Route exact path="/dashboard" component={DashBoard}></Route>
             <Route exact path="/addTask" component={AddTask}></Route>
+            <Route exact path="/updateProject/:id" component={UpdateProject}></Route>
           </div>
         </Router>
       </Provider>
