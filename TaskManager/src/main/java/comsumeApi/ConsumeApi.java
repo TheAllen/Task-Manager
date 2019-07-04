@@ -14,7 +14,7 @@ public class ConsumeApi {
 //	private static final Logger l = LoggerFactory.getLogger(ConsumeApi.class);
 //	private static final String apiEndpoint = "https://pixabay.com/api/?key=12546187-917a6f0406e6efeddf50f9728&q=basketball";
 	
-	static final String URL = "https://restcountries-v1.p.rapidapi.com/all";
+	static final String URL = "-";
 	
 	public static void main(String[] args) {
 //		RestTemplate rt = new RestTemplate();
@@ -24,8 +24,8 @@ public class ConsumeApi {
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_JSON}));
-		headers.set("X-RapidAPI-Host", "restcountries-v1.p.rapidapi.com");
-		headers.set("X-RapidAPI-Key", "7945eef772msh1fd4967ac8377e6p1861d4jsnf22254fd5d7f");
+		headers.set("X-RapidAPI-Host", "-");
+		headers.set("X-RapidAPI-Key", "-");
 		
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
 		
