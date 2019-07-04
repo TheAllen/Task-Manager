@@ -3,16 +3,25 @@ import ProjectItem from './Project/ProjectItems'
 import Header from './Layout/Header'
 import CreateTaskButton from './Project/CreateTaskButton'
 import { connect } from 'react-redux'
-import { getProjects} from '../actions/projectAction'
+import { getProjects } from '../actions/projectAction'
 import PropTypes from "prop-types"
 
 class DashBoard extends Component {
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.getProjects();
     }
 
     render() {
+
+        const {projects} = this.props.project;
+
+        // const projectObject = {
+        //     projectName: "ProjectName PROPS",
+        //     projectIdentifier: "PROP",
+        //     description: "description from props"
+        // };
+
         return (
             <div>
                 <div className="projects">
@@ -24,7 +33,11 @@ class DashBoard extends Component {
                                 <CreateTaskButton />
                                 <br />
                                 <hr />
-                                <ProjectItem />
+                                {
+                                    projects.map(project=>(
+                                        <ProjectItem key={project.id} project={project}/>
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>
@@ -40,11 +53,11 @@ class DashBoard extends Component {
 
 DashBoard.propTypes = {
     projects: PropTypes.object.isRequired,
-    getProjects:PropTypes.func.isRequired
+    getProjects: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
-    project:state.project,
+    project: state.project,
 });
 
-export default connect(mapStateToProps, {getProjects})(DashBoard);
+export default connect(mapStateToProps, { getProjects })(DashBoard);
