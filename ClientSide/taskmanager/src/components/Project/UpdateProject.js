@@ -166,7 +166,7 @@ UpdateProject.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    propject: state.project.project,
+    project: state.project.project,
     errors: state.errors
 });
 
