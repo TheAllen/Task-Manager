@@ -125,10 +125,18 @@ border-radius: 10px;
       0 15px 0 #121212, 
       0 22px 30px rgba(0, 0, 0, 0.9); */
 
-      color: #202020;
-    letter-spacing: .1em;
-    text-shadow: 
+      color: #401ea0;
+      letter-spacing: .1em;
+      text-shadow: 
       -1px -1px 1px #111, 
+      2px 2px 1px #363636;
+}
+
+.display-5 {
+  color: #401ea0;
+      letter-spacing: .1em;
+      text-shadow: 
+      -0.5px -0.5px 0.5px #111, 
       2px 2px 1px #363636;
 }
 

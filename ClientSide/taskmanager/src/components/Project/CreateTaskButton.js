@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const CreateTaskButton = () => {
     return (
         <React.Fragment>
-            <Link to="/addTask" className="btn btn-lg btn-info">
+            <Link to="/addTask" className="btn btn-lg btn-info display-5">
                 Create a Task
             </Link>
         </React.Fragment>
