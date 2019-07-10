@@ -2,14 +2,20 @@ package com.TheAllen.TaskManager.domain;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class ProjectTask {
@@ -29,9 +35,15 @@ public class ProjectTask {
 	private Date dueDate;
 	private Date createdAt;
 	private Date updatedAt;
+	
+	//ManyToOne backlog
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.REFRESH)
+	@JoinColumn(name="backlog_id", updatable=false, nullable=false)
+	@JsonIgnore
+	private Backlog backlog;
 
 	@Column(updatable = false)
-	private String project_identifier;
+	private String projectIdentifier;
 
 	public ProjectTask() {
 
@@ -123,7 +135,7 @@ public class ProjectTask {
 	public String toString() {
 		return String.format(
 				"ProjectTask [id=%s, projectSequence=%s, summary=%s, ac=%s, status=%s, priority=%s, dueDate=%s, createdAt=%s, updatedAt=%s, project_identifier=%s]",
-				id, projectSequence, summary, ac, status, priority, dueDate, createdAt, updatedAt, project_identifier);
+				id, projectSequence, summary, ac, status, priority, dueDate, createdAt, updatedAt, projectIdentifier);
 	}
 
 }

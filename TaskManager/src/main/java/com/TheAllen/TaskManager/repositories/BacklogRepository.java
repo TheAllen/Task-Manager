@@ -7,5 +7,6 @@ import com.TheAllen.TaskManager.domain.Backlog;
 
 @Repository
 public interface BacklogRepository extends CrudRepository<Backlog, Long>{
-
+	
+	Backlog findByProjectIdentifier(String projectIdentifier);
 }

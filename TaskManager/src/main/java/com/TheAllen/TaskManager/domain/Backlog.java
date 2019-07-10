@@ -1,10 +1,20 @@
 package com.TheAllen.TaskManager.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Backlog {
@@ -15,10 +25,28 @@ public class Backlog {
 	
 	private Integer PTSequence = 0;
 	@Column(updatable=false)
-	private String project_identifier;
+	private String projectIdentifier;
+	
+	//Add relationship with the project
+	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="project_id", nullable = false)
+	@JsonIgnore
+	private Project project;
+	
+	//OneToMany ProjectTask
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="backlog")
+	private List<ProjectTask> tasks = new ArrayList<ProjectTask>();
 	
 	public Backlog() {
 		
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
 	}
 
 	public Long getId() {
@@ -38,10 +66,10 @@ public class Backlog {
 	}
 
 	public String getProject_identifier() {
-		return project_identifier;
+		return projectIdentifier;
 	}
 
 	public void setProject_identifier(String project_identifier) {
-		this.project_identifier = project_identifier;
+		this.projectIdentifier = project_identifier;
 	}
 }
