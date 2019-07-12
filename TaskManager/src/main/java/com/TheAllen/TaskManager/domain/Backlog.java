@@ -24,6 +24,7 @@ public class Backlog {
 	private Long id;
 	
 	private Integer PTSequence = 0;
+	
 	@Column(updatable=false)
 	private String projectIdentifier;
 	

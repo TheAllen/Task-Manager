@@ -26,12 +26,13 @@ public class ProjectTask {
 
 	@Column(updatable = false)
 	private String projectSequence;
+	
 	@NotBlank(message = "Please include a project summary")
 	private String summary;
 
 	private String ac;
 	private String status;
-	private String priority;
+	private Integer priority;
 	private Date dueDate;
 	private Date createdAt;
 	private Date updatedAt;
@@ -42,8 +43,24 @@ public class ProjectTask {
 	@JsonIgnore
 	private Backlog backlog;
 
+	public Backlog getBacklog() {
+		return backlog;
+	}
+
+	public void setBacklog(Backlog backlog) {
+		this.backlog = backlog;
+	}
+
 	@Column(updatable = false)
 	private String projectIdentifier;
+
+	public String getProjectIdentifier() {
+		return projectIdentifier;
+	}
+
+	public void setProjectIdentifier(String projectIdentifier) {
+		this.projectIdentifier = projectIdentifier;
+	}
 
 	public ProjectTask() {
 
@@ -89,11 +106,11 @@ public class ProjectTask {
 		this.status = status;
 	}
 
-	public String getPriority() {
+	public Integer getPriority() {
 		return priority;
 	}
 
-	public void setPriority(String priority) {
+	public void setPriority(Integer priority) {
 		this.priority = priority;
 	}
 
