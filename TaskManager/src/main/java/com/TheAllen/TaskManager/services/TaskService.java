@@ -61,4 +61,11 @@ public class TaskService {
 		}
 		return taskRepository.findByProjectIdentifierOrderByPriority(backlog_id);
 	}
+	
+	public ProjectTask findProjectTaskByProjectSequence(String backlog_id, String sequence) {
+		
+		
+		
+		return taskRepository.findByProjectSequence(sequence);
+	}
 }
