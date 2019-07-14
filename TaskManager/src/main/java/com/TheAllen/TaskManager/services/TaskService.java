@@ -64,8 +64,20 @@ public class TaskService {
 	
 	public ProjectTask findProjectTaskByProjectSequence(String backlog_id, String sequence) {
 		
+		Backlog backlog = backlogRepository.findByProjectIdentifier(backlog_id);
+		if(backlog == null) {
+			throw new ProjectNotFoundException("Project not found with that backlog id");
+		}
 		
+		ProjectTask projectTask = taskRepository.findByProjectSequence(sequence);
+		if(projectTask == null) {
+			throw new ProjectNotFoundException("Project Task: " + sequence + " not found.");
+		}
 		
-		return taskRepository.findByProjectSequence(sequence);
+		if(!projectTask.getProjectIdentifier().equals(backlog.getProject_identifier())) {
+			throw new ProjectNotFoundException("Project task id and backlog id doesn't match.");
+		}
+		
+		return projectTask;
 	}
 }
