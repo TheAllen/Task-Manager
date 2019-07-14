@@ -1,7 +1,5 @@
 package com.TheAllen.TaskManager.web;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,5 +54,23 @@ public class BacklogController {
 		
 		ProjectTask task = taskService.findProjectTaskByProjectSequence(backlog_id, projectTaskId);
 		return new ResponseEntity<ProjectTask>(task, HttpStatus.OK);
+	}
+	
+	@PatchMapping("/{backlog_id}/{projectTaskId}")
+	public ResponseEntity<?> updateProjectTask(@Valid @RequestBody ProjectTask projectTask, @PathVariable String backlog_id, @PathVariable String projectTaskId, BindingResult result){
+		
+		ResponseEntity<?> errorMap = mapValidationService.mapValidationService(result);
+		if(errorMap != null) return errorMap;
+		
+		ProjectTask updatedProjectTask = taskService.updateProjectSequence(projectTask, backlog_id);
+		
+		return new ResponseEntity<ProjectTask>(updatedProjectTask, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/{backlog_id}/{projectTaskId}")
+	public ResponseEntity<?> deleteProjectTask(@PathVariable String backlog_id, @PathVariable String projectTaskId) {
+		taskService.deleteProjectTaskBySequence(backlog_id, projectTaskId);
+		
+		return new ResponseEntity<String>("Project Task: " + projectTaskId + " was successfully deleted", HttpStatus.OK);
 	}
 }

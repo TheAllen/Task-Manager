@@ -1,8 +1,8 @@
 package com.TheAllen.TaskManager.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.TheAllen.TaskManager.domain.Backlog;
@@ -79,5 +79,21 @@ public class TaskService {
 		}
 		
 		return projectTask;
+	}
+	
+	public ProjectTask updateProjectSequence(ProjectTask updatedTask, String backlog_id) {
+		ProjectTask projectTask = taskRepository.findByProjectSequence(updatedTask.getProjectSequence());
+		projectTask = updatedTask;
+		return taskRepository.save(projectTask);
+	}
+	
+	public void deleteProjectTaskBySequence(String backlog_id, String sequence) {
+		ProjectTask projectTask = findProjectTaskByProjectSequence(backlog_id, sequence);
+		
+//		List<ProjectTask> list = projectTask.getBacklog().getTasks();
+//		list.remove(projectTask);
+//		backlogRepository.save(projectTask.getBacklog());
+		
+		taskRepository.delete(projectTask);
 	}
 }
