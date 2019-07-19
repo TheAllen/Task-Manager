@@ -37,7 +37,7 @@ export const getProjectTask = (backlog_id, pt_id, history) => async dispatch => 
         dispatch({
             type: GET_PROJECT_TASK,
             payload: res.data
-        })
+        });
     }catch(e){
         history.push("/dashboard");
     }

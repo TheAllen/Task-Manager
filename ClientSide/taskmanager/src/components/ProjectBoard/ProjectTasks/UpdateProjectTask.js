@@ -1,14 +1,84 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import classnames from "classnames"
 import PropTypes from 'prop-types'
-import {getProjectTask} from '../../../actions/backlogActions'
+import { getProjectTask } from '../../../actions/backlogActions'
 
 class UpdateProjectTask extends Component {
 
+    constructor() {
+        super();
+
+        this.state = {
+            id: "",
+            projectSequence: "",
+            summary: "",
+            ac: "",
+            status: "",
+            priority: "",
+            dueDate: "",
+            createdAt: "",
+            projectIdentifier: ""
+        }
+
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    onChange(e){
+        this.setState({[e.target.name]: e.target.value})
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+
+        const updatedProjectTask = {
+            id: this.state.id,
+            projectSequence: this.state.projectSequence,
+            summary: this.state.summary,
+            ac: this.state.ac,
+            status: this.state.status,
+            priority: this.state.priority,
+            dueDate: this.state.dueDate,
+            createdAt: this.state.createdAt,
+            projectIdentifier: this.state.projectIdentifier
+        }
+
+        console.log(updatedProjectTask)
+    }
+
     componentDidMount() {
-        const {backlog_id, pt_id} = this.props.match.params;
+        const { backlog_id, pt_id } = this.props.match.params;
         this.props.getProjectTask(backlog_id, pt_id, this.props.history)
+    }
+
+    componentWillReceiveProps(nextProps) {
+
+        const {
+            id,
+            projectSequence,
+            summary,
+            ac,
+            status,
+            priority,
+            dueDate,
+            createdAt,
+            projectIdentifier
+        } = nextProps.projectTask;
+
+        
+
+        this.setState({
+            id,
+            projectSequence,
+            summary,
+            ac,
+            status,
+            priority,
+            dueDate,
+            createdAt,
+            projectIdentifier
+        });
     }
 
     render() {
@@ -21,21 +91,39 @@ class UpdateProjectTask extends Component {
                             <a href="#" className="btn btn-light">
                                 Back to Project Board
                             </a>
-                            <h4 className="display-4 text-center">Add /Update Project Task</h4>
-                            <p className="lead text-center">Project Name + Project Code</p>
-                            <form >
+                            <h4 className="display-4 text-center"> Update Project Task</h4>
+                            <p className="lead text-center">Project Name: {this.state.projectIdentifier} + Project Task Id: {this.state.projectSequence}</p>
+                            <form onSubmit = {this.onSubmit}>
                                 <div className="form-group">
-                                    <input type="text" className="form-control form-control-lg" name="summary" placeholder="Project Task summary" />
+                                    <input 
+                                        type="text" 
+                                        className="form-control form-control-lg" 
+                                        name="summary" 
+                                        placeholder="Project Task summary" 
+                                        value={this.state.summary}
+                                        onChange = {this.onChange}
+                                    />
                                 </div>
                                 <div className="form-group">
-                                    <textarea className="form-control form-control-lg" placeholder="Acceptance Criteria" name="acceptanceCriteria"></textarea>
+                                    <textarea 
+                                    className="form-control form-control-lg" 
+                                    placeholder="Acceptance Criteria" 
+                                    name="ac"
+                                    value={this.state.ac}
+                                    onChange = {this.onChange}
+                                    ></textarea>
                                 </div>
                                 <h6>Due Date</h6>
                                 <div className="form-group">
-                                    <input type="date" className="form-control form-control-lg" name="dueDate" />
+                                    <input type="date" 
+                                    className="form-control form-control-lg" 
+                                    name="dueDate" 
+                                    value={this.state.dueDate}   
+                                    onChange = {this.onChange} 
+                                    />
                                 </div>
                                 <div className="form-group">
-                                    <select className="form-control form-control-lg" name="priority">
+                                    <select className="form-control form-control-lg" name="priority" value={this.state.priority} onChange = {this.onChange}>
                                         <option value={0}>Select Priority</option>
                                         <option value={1}>High</option>
                                         <option value={2}>Medium</option>
@@ -44,7 +132,7 @@ class UpdateProjectTask extends Component {
                                 </div>
 
                                 <div className="form-group">
-                                    <select className="form-control form-control-lg" name="status">
+                                    <select className="form-control form-control-lg" name="status" value={this.state.status} onChange = {this.onChange}>
                                         <option value="">Select Status</option>
                                         <option value="TO_DO">TO DO</option>
                                         <option value="IN_PROGRESS">IN PROGRESS</option>
@@ -67,8 +155,8 @@ UpdateProjectTask.propTypes = {
     projectTask: PropTypes.object.isRequired
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = state => ({
     projectTask: state.backlog.projectTask
-}
+});
 
-export default connect(null, {getProjectTask})(UpdateProjectTask);
+export default connect(mapStateToProps, { getProjectTask })(UpdateProjectTask);
