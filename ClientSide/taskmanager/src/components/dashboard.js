@@ -52,7 +52,7 @@ class DashBoard extends Component {
 }
 
 DashBoard.propTypes = {
-    projects: PropTypes.object.isRequired,
+    project: PropTypes.object.isRequired,
     getProjects: PropTypes.func.isRequired
 }
 
