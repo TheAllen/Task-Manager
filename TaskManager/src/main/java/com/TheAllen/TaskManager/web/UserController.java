@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.TheAllen.TaskManager.domain.User;
 import com.TheAllen.TaskManager.services.MapValidationService;
 import com.TheAllen.TaskManager.services.UserService;
+import com.TheAllen.TaskManager.validator.UserValidator;
 
 @RestController
 @RequestMapping(path="/api/users")
@@ -25,9 +26,12 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private UserValidator userValidator;
+	
 	@PostMapping("/register")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result) {
-		
+		userValidator.validate(user, result);
 		ResponseEntity<?> errorMap = mapValidationService.mapValidationService(result);
 		if(errorMap != null) return errorMap;
 		

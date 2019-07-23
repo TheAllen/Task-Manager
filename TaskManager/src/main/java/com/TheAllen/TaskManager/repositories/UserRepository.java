@@ -8,5 +8,7 @@ import com.TheAllen.TaskManager.domain.User;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long>{
 	
+	User findByUsername(String username);
 	
+	User getById(long id);
 }
