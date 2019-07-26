@@ -28,7 +28,6 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
 	
-	
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -52,8 +51,10 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 				
 			}
 		}catch(Exception e) {
-			
+			logger.error("Could not set user authentication", e);
 		}
+		
+		filterChain.doFilter(request, response);
 		
 	}
 

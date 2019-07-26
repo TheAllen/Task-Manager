@@ -1,5 +1,7 @@
 package com.TheAllen.TaskManager.web;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,30 +33,30 @@ public class ProjectController {
 	public MapValidationService mapValidationService;
 
 	@PostMapping("")
-	public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result) {
+	public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result, Principal principal) {
 		
 		ResponseEntity<?> errorMap = mapValidationService.mapValidationService(result);
 		if(errorMap != null) return errorMap;
 		
-		Project project1 = projectService.saveOrUpdateProject(project);
+		Project project1 = projectService.saveOrUpdateProject(project, principal.getName());
 		return new ResponseEntity<Project>(project1, HttpStatus.CREATED);
 	}
 	
 	//@GetMapping("/{projectId}")
 	@RequestMapping(path = "/{projectId}", method=RequestMethod.GET)
-	public ResponseEntity<?> getProjectById(@PathVariable String projectId){
-		Project project = projectService.findProjectById(projectId);
+	public ResponseEntity<?> getProjectById(@PathVariable String projectId, Principal principal){
+		Project project = projectService.findProjectById(projectId, principal.getName());
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
 	
 	@GetMapping("/all")
-	public Iterable<Project> getAllProjects() {
-		return projectService.findAllProjects();
+	public Iterable<Project> getAllProjects(Principal principal) {
+		return projectService.findAllProjects(principal.getName());
 	}
 	
 	@RequestMapping(path="/{projectId}", method=RequestMethod.DELETE)
-	public ResponseEntity<?> deleteProject(@PathVariable String projectId) {
-		projectService.deleteProjectByIdentifier(projectId);
+	public ResponseEntity<?> deleteProject(@PathVariable String projectId, Principal principal) {
+		projectService.deleteProjectByIdentifier(projectId, principal.getName());
 		return new ResponseEntity<String>("Project with ID: " + projectId + " was deleted.", HttpStatus.OK);
 	}
 	
