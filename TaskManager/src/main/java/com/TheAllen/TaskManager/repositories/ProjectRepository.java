@@ -16,7 +16,7 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
 	
 	Iterable<Project> findAllByProjectLeader(String username);
 	
-	Project findByProjectIdentifier(String id);
+	Project findByProjectIdentifier(String projectId);
 	
 	
 	
