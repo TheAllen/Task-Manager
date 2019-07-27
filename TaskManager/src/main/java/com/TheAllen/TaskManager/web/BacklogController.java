@@ -1,5 +1,7 @@
 package com.TheAllen.TaskManager.web;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,20 +35,20 @@ public class BacklogController {
 	
 	@RequestMapping(path="/{backlog_id}", method=RequestMethod.POST)
 	public ResponseEntity<?> addTaskToBacklog(@Valid @RequestBody ProjectTask projectTask,
-			BindingResult result, @PathVariable String backlog_id) {
+			BindingResult result, @PathVariable String backlog_id, Principal principal) {
 		
 		ResponseEntity<?> errorMap = mapValidationService.mapValidationService(result);
 		if(errorMap != null) return errorMap;
 		
-		ProjectTask task = taskService.addProjectTask(backlog_id, projectTask);
+		ProjectTask task = taskService.addProjectTask(backlog_id, projectTask, principal.getName());
 		
 		return new ResponseEntity<ProjectTask> (task, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{backlog_id}")
-	public Iterable<ProjectTask> getProjectBacklog(@PathVariable String backlog_id){
+	public Iterable<ProjectTask> getProjectBacklog(@PathVariable String backlog_id, Principal principal){
 		
-		return taskService.findBacklogById(backlog_id);
+		return taskService.findBacklogById(backlog_id, principal.getName());
 	}
 	
 	@GetMapping("/{backlog_id}/{projectTaskId}")
