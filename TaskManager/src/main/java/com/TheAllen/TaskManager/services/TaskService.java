@@ -68,33 +68,30 @@ public class TaskService {
 		return taskRepository.findByProjectIdentifierOrderByPriority(backlog_id);
 	}
 	
-	public ProjectTask findProjectTaskByProjectSequence(String backlog_id, String sequence) {
+	public ProjectTask findProjectTaskByProjectSequence(String backlog_id, String sequence, String username) {
 		
-		Backlog backlog = backlogRepository.findByProjectIdentifier(backlog_id);
-		if(backlog == null) {
-			throw new ProjectNotFoundException("Project not found with that backlog id");
-		}
+		projectService.findProjectById(backlog_id, username);
 		
 		ProjectTask projectTask = taskRepository.findByProjectSequence(sequence);
 		if(projectTask == null) {
 			throw new ProjectNotFoundException("Project Task: " + sequence + " not found.");
 		}
 		
-		if(!projectTask.getProjectIdentifier().equals(backlog.getProject_identifier())) {
+		if(!projectTask.getProjectIdentifier().equals(backlog_id)) {
 			throw new ProjectNotFoundException("Project task id and backlog id doesn't match.");
 		}
 		
 		return projectTask;
 	}
 	
-	public ProjectTask updateProjectSequence(ProjectTask updatedTask, String backlog_id) {
-		ProjectTask projectTask = taskRepository.findByProjectSequence(updatedTask.getProjectSequence());
+	public ProjectTask updateProjectSequence(ProjectTask updatedTask, String backlog_id, String pt_id, String username) {
+		ProjectTask projectTask = findProjectTaskByProjectSequence(backlog_id, pt_id, username);
 		projectTask = updatedTask;
 		return taskRepository.save(projectTask);
 	}
 	
-	public void deleteProjectTaskBySequence(String backlog_id, String sequence) {
-		ProjectTask projectTask = findProjectTaskByProjectSequence(backlog_id, sequence);
+	public void deleteProjectTaskBySequence(String backlog_id, String sequence, String username) {
+		ProjectTask projectTask = findProjectTaskByProjectSequence(backlog_id, sequence, username);
 		
 //		List<ProjectTask> list = projectTask.getBacklog().getTasks();
 //		list.remove(projectTask);

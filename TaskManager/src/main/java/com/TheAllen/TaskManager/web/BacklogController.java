@@ -52,26 +52,26 @@ public class BacklogController {
 	}
 	
 	@GetMapping("/{backlog_id}/{projectTaskId}")
-	public ResponseEntity<?> getProjectTask(@PathVariable String backlog_id, @PathVariable String projectTaskId){
+	public ResponseEntity<?> getProjectTask(@PathVariable String backlog_id, @PathVariable String projectTaskId, Principal principal){
 		
-		ProjectTask task = taskService.findProjectTaskByProjectSequence(backlog_id, projectTaskId);
+		ProjectTask task = taskService.findProjectTaskByProjectSequence(backlog_id, projectTaskId, principal.getName());
 		return new ResponseEntity<ProjectTask>(task, HttpStatus.OK);
 	}
 	
 	@PatchMapping("/{backlog_id}/{projectTaskId}")
-	public ResponseEntity<?> updateProjectTask(@Valid @RequestBody ProjectTask projectTask, @PathVariable String backlog_id, @PathVariable String projectTaskId, BindingResult result){
+	public ResponseEntity<?> updateProjectTask(@Valid @RequestBody ProjectTask projectTask, @PathVariable String backlog_id, @PathVariable String projectTaskId, BindingResult result, Principal principal){
 		
 		ResponseEntity<?> errorMap = mapValidationService.mapValidationService(result);
 		if(errorMap != null) return errorMap;
 		
-		ProjectTask updatedProjectTask = taskService.updateProjectSequence(projectTask, backlog_id);
+		ProjectTask updatedProjectTask = taskService.updateProjectSequence(projectTask, backlog_id, projectTaskId, principal.getName());
 		
 		return new ResponseEntity<ProjectTask>(updatedProjectTask, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{backlog_id}/{projectTaskId}")
-	public ResponseEntity<?> deleteProjectTask(@PathVariable String backlog_id, @PathVariable String projectTaskId) {
-		taskService.deleteProjectTaskBySequence(backlog_id, projectTaskId);
+	public ResponseEntity<?> deleteProjectTask(@PathVariable String backlog_id, @PathVariable String projectTaskId, Principal principal) {
+		taskService.deleteProjectTaskBySequence(backlog_id, projectTaskId, principal.getName());
 		
 		return new ResponseEntity<String>("Project Task: " + projectTaskId + " was successfully deleted", HttpStatus.OK);
 	}
