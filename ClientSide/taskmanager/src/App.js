@@ -16,6 +16,33 @@ import Landing from './components/Layout/Landing'
 import Register from './components/UserManagement/Register';
 import Login from './components/UserManagement/Login';
 
+import jwt_decode from 'jwt-decode'
+import setJWT from './SecurityUtils/SetJWT'
+import { SET_CURRENT_USER } from './actions/types';
+import {logout} from './actions/SecurityActions';
+
+const jwtToken = localStorage.jwtToken
+
+if(jwtToken) {
+  //Check token from localStorage and set it
+  setJWT(jwtToken);
+  const decode = jwt_decode(jwtToken);
+
+  store.dispatch({
+    type: SET_CURRENT_USER,
+    payload: decode
+  });
+
+  const currentTime = Date.now() / 1000;
+  if(decode.exp < currentTime){
+
+    //Handle logout
+    store.dispatch(logout());
+    window.location.href = "/";
+
+    // window.location.href="/";
+  }
+}
 
 class App extends Component {
   render() {

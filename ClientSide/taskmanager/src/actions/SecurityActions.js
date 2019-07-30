@@ -30,17 +30,17 @@ export const login = LoginRequest => async dispatch => {
     //dispatch to our security reducer
 
     try{
-        const res = Axios.post("http://localhost:8080/api/users/login", LoginRequest);
-
+        const res = await Axios.post("http://localhost:8080/api/users/login", LoginRequest);
         //Extracting token from res
+
         const {token} = res.data;
 
         localStorage.setItem('jwtToken', token);
         setJWT(token);
-
+        
         //Decoded token
         const decode = jwt_decode(token);
-
+        
         //set current user
         dispatch({
             type: SET_CURRENT_USER,
@@ -54,4 +54,15 @@ export const login = LoginRequest => async dispatch => {
             payload: e.response.data
         });
     }
+}
+
+export const logout = () => dispatch => {
+    localStorage.removeItem("jwtToken");
+    setJWT(false); //Deletes the header
+    
+    dispatch({
+        type: SET_CURRENT_USER,
+        payload: {}
+    });
+
 }
