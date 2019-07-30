@@ -9,7 +9,7 @@ import { logout } from '../../actions/SecurityActions'
 class Header extends Component {
 
     logout() {
-        this.props.logout;
+        this.props.logout();
         window.location.href = "/";
     }
 
@@ -77,6 +77,8 @@ class Header extends Component {
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
                         <span className="navbar-toggler-icon" />
                     </button>
+
+
                     {headerLinks}
 
                     {/* <div className="collapse navbar-collapse" id="mobile-nav">
