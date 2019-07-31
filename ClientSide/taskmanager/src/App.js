@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import {Button, Navbar, NavDropdown, Form, Nav, FormControl} from 'react-bootstrap';
+import { Button, Navbar, NavDropdown, Form, Nav, FormControl } from 'react-bootstrap';
 import DashBoard from './components/dashboard'
-import {BrowserRouter as Router, Route} from 'react-router-dom' 
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Header from './components/Layout/Header'
 import logo from './logo.svg';
 import './App.css';
 import AddTask from './components/Project/AddTask';
 import UpdateProject from './components/Project/UpdateProject';
-import {Provider} from "react-redux";
+import { Provider } from "react-redux";
 import store from "./store";
 import ProjectBoard from "./components/ProjectBoard/ProjectBoard"
 import AddProjectTask from './components/ProjectBoard/ProjectTasks/AddProjectTask';
@@ -19,11 +19,13 @@ import Login from './components/UserManagement/Login';
 import jwt_decode from 'jwt-decode'
 import setJWT from './SecurityUtils/SetJWT'
 import { SET_CURRENT_USER } from './actions/types';
-import {logout} from './actions/SecurityActions';
+import { logout } from './actions/SecurityActions';
+
+import SecureRoute from './SecurityUtils/SecureRoute';
 
 const jwtToken = localStorage.jwtToken
 
-if(jwtToken) {
+if (jwtToken) {
   //Check token from localStorage and set it
   setJWT(jwtToken);
   const decode = jwt_decode(jwtToken);
@@ -34,7 +36,7 @@ if(jwtToken) {
   });
 
   const currentTime = Date.now() / 1000;
-  if(decode.exp < currentTime){
+  if (decode.exp < currentTime) {
 
     //Handle logout
     store.dispatch(logout());
@@ -46,7 +48,7 @@ if(jwtToken) {
 
 class App extends Component {
   render() {
-    
+
     return (
       <Provider store={store}>
         <Router>
@@ -57,21 +59,23 @@ class App extends Component {
             }
 
             <Route exact path="/" component={Landing}></Route>
-            <Route exact path="/register" component = {Register}></Route>
-            <Route exact path="/login" component = {Login}></Route>
+            <Route exact path="/register" component={Register}></Route>
+            <Route exact path="/login" component={Login}></Route>
             {
               //private routes
             }
-            <Route exact path="/dashboard" component={DashBoard}></Route>
-            <Route exact path="/addTask" component={AddTask}></Route>
-            <Route exact path="/updateProject/:id" component={UpdateProject}></Route>
-            <Route exact path="/projectBoard/:id" component={ProjectBoard}></Route>
-            <Route exact path="/addProjectTask/:id" component={AddProjectTask}></Route>
-            <Route exact path="/updateProjectTask/:backlog_id/:pt_id/" component={UpdateProjectTask}></Route>
+            <Switch>
+              <SecureRoute exact path="/dashboard" component={DashBoard}></SecureRoute>
+              <SecureRoute exact path="/addTask" component={AddTask}></SecureRoute>
+              <SecureRoute exact path="/updateProject/:id" component={UpdateProject}></SecureRoute>
+              <SecureRoute exact path="/projectBoard/:id" component={ProjectBoard}></SecureRoute>
+              <SecureRoute exact path="/addProjectTask/:id" component={AddProjectTask}></SecureRoute>
+              <SecureRoute exact path="/updateProjectTask/:backlog_id/:pt_id/" component={UpdateProjectTask}></SecureRoute>
+            </Switch>
           </div>
         </Router>
       </Provider>
-      
+
     );
   }
 }

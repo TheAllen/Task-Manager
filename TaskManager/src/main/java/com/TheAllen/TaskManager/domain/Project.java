@@ -34,14 +34,14 @@ public class Project {
 	@NotBlank(message = "Description can not be empty")
 	private String description;
 	
-	@JsonFormat(pattern="yyyy-MMM-dd")
+	@JsonFormat(pattern="yyyy-mm-dd")
 	private Date start_date;
-	@JsonFormat(pattern="yyyy-MMM-dd")
+	@JsonFormat(pattern="yyyy-mm-dd")
 	private Date end_date;
-	@JsonFormat(pattern="yyyy-MMM-dd")
+	@JsonFormat(pattern="yyyy-mm-dd")
 	@Column(updatable=false)
 	private Date created_at;
-	@JsonFormat(pattern="yyyy-MMM-dd")
+	@JsonFormat(pattern="yyyy-mm-dd")
 	private Date updated_at;
 	
 	private String projectLeader;
