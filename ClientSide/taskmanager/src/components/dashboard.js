@@ -30,7 +30,7 @@ class DashBoard extends Component {
                             <div className="col-md-12">
                                 <h1 className="display-4 text-center">Tasks and Todos</h1>
                                 <br />
-                                <CreateTaskButton />
+                                <CreateTaskButton style={{alignItems:'center'}}/>
                                 <br />
                                 <hr />
                                 {

@@ -52,7 +52,7 @@ class AddTask extends Component {
         const {errors} = this.state;
         return (
             <div>
-                <h1>Add Task form</h1>
+                <h1></h1>
                 <div className="project">
                     <div className="container">
                         <div className="row">
